@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import ForecastDashboard from "./pages/ForecastDashboard";
+import Header from "./components/Header";
+import { useState } from "react";
+import { ButtonGroup } from "./components/ButtonGroup";
 
 function App() {
+  const [currentCity, setCurrentCity] = useState("Waterloo");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="mt-10">
+      <Header setCurrentCity={setCurrentCity} />
+      <div className="flex justify-center items-center mt-10">
+        <ButtonGroup />
+      </div>
+      <Routes>
+        <Route path="/" element={<Dashboard currentCity={currentCity} />} />
+        <Route
+          path="/forecast"
+          element={<ForecastDashboard currentCity={currentCity} />}
+        />
+      </Routes>
     </div>
   );
 }
